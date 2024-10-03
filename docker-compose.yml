@@ -1,0 +1,21 @@
+services:
+  docker101-app:
+    image: docker101
+    command: ["redisdb:6379"]
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      - local-net
+    depends_on:
+      - redisdb 
+  redisdb:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    expose:
+      - 6379
+    networks:
+      - local-net
+networks: 
+  local-net:
